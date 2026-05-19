@@ -1,0 +1,2 @@
+Java backend developer with experience in Spring, Docker, PostgreSQL, APIs and React.
+Currently studying Python, machine learning and artificial intelligence.
