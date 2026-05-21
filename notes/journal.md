@@ -35,3 +35,21 @@ Result:
 Insights:
 - semantic matching can identify similarity even without exact keyword matches
 - embeddings are significantly more powerful than lexical matching alone
+
+
+## 2026-05-21
+
+Implemented the first FitScore scoring pipeline.
+
+Created:
+- keyword score
+- semantic score
+- weighted final score
+
+Result:
+- Keyword Score: 83.33%
+- Semantic Score: 74.75%
+- Final FitScore: 78.18%
+
+Insight:
+- combining lexical and semantic scoring gives a more balanced compatibility analysis between resume and job description.
