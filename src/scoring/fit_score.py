@@ -26,9 +26,10 @@ SKILLS = [
 def read_text_file(path: Path) -> str:
     return path.read_text(encoding="utf-8").lower()
 
-
 def find_skills(text: str, skills: list[str]) -> list[str]:
     return [skill for skill in skills if skill in text]
+
+
 
 
 def calculate_keyword_score(resume_skills: list[str], job_skills: list[str]) -> float:
@@ -38,7 +39,6 @@ def calculate_keyword_score(resume_skills: list[str], job_skills: list[str]) -> 
     matched_skills = set(resume_skills).intersection(job_skills)
 
     return round((len(matched_skills) / len(job_skills)) * 100, 2)
-
 
 def calculate_semantic_score(resume_text: str, job_text: str) -> float:
     model = SentenceTransformer("all-MiniLM-L6-v2")
@@ -50,10 +50,23 @@ def calculate_semantic_score(resume_text: str, job_text: str) -> float:
 
     return round(similarity * 100, 2)
 
-
 def calculate_final_score(keyword_score: float, semantic_score: float) -> float:
     final_score = (float(keyword_score) * 0.4) + (float(semantic_score) * 0.6)
     return round(final_score, 2)
+
+
+
+def get_matched_skills(
+        resume_skills: list[str],
+        job_skills: list[str]
+    ) -> list[str]:
+    return sorted(set(resume_skills).intersection(job_skills))
+
+def get_missing_skills(
+        resume_skills: list[str],
+        job_skills: list[str]
+    ) -> list[str]:
+    return sorted(set(job_skills) - set(resume_skills))
 
 
 def main() -> None:
@@ -67,6 +80,17 @@ def main() -> None:
     semantic_score = calculate_semantic_score(resume_text, job_text)
     final_score = calculate_final_score(keyword_score, semantic_score)
 
+
+    matched_skills = get_matched_skills(
+        resume_skills,
+        job_skills
+    )
+
+    missing_skills = get_missing_skills(
+        resume_skills,
+        job_skills
+    )
+    
     print("=== FitScore ===")
     print(f"Keyword Score: {keyword_score}%")
     print(f"Semantic Score: {semantic_score}%")
@@ -78,6 +102,13 @@ def main() -> None:
     print("\nJob Required Skills:")
     print(job_skills)
 
+    print("\nMatched Skills:")
+    for skill in matched_skills:
+        print(f"- {skill}")
+
+    print("\nMissing Skills:")
+    for skill in missing_skills:
+        print(f"- {skill}")
 
 if __name__ == "__main__":
     main()
