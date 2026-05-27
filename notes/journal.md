@@ -1,3 +1,19 @@
+## 2026-05-22
+
+Improved FitScore explainability output.
+
+Added:
+- matched skills
+- missing skills
+- sorted explainability results
+
+Result:
+- Missing skill identified: AWS
+
+Insight:
+- explainability makes the score more useful because the user can understand why the score was generated.
+
+
 ## 2026-05-19
 
 Started the first deep work session for FitScore.
